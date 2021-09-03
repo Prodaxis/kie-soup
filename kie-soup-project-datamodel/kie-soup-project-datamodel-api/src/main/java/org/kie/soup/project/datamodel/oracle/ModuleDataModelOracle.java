@@ -70,4 +70,6 @@ public interface ModuleDataModelOracle {
     Map<String, Boolean> getModuleCollectionTypes();
 
     List<String> getModulePackageNames();
+    
+    Map<String, Map<String, Object>> getStaticFields();
 }

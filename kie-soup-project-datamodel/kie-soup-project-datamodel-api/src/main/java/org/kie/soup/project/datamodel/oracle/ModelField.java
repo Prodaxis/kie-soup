@@ -18,7 +18,9 @@
 package org.kie.soup.project.datamodel.oracle;
 
 public class ModelField {
-
+	
+	public static final String LABEL_MAPPING_CLASS_KEY = "LABEL_MAPPING_CLASS";
+	
     public static enum FIELD_CLASS_TYPE {
         REGULAR_CLASS,
         TYPE_DECLARATION_CLASS

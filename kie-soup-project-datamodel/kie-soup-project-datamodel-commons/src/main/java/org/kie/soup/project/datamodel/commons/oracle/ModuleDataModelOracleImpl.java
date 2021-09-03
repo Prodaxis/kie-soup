@@ -17,6 +17,7 @@
 
 package org.kie.soup.project.datamodel.commons.oracle;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -70,6 +71,9 @@ public class ModuleDataModelOracleImpl implements ModuleDataModelOracle {
 
     // List of available package names
     private List<String> modulePackageNames = new ArrayList<String>();
+    
+    // A map of public and static of Field of class.
+    protected Map<String, Map<String, Object>> staticFields = new HashMap<>();
 
     @Override
     public void setModuleName(final String moduleName) {
@@ -190,5 +194,13 @@ public class ModuleDataModelOracleImpl implements ModuleDataModelOracle {
     public List<String> getModulePackageNames() {
         return this.modulePackageNames;
     }
+
+	public Map<String, Map<String, Object>> getStaticFields() {
+		return staticFields;
+	}
+
+	public void addStaticFields(Map<String, Map<String, Object>> staticFields) {
+		this.staticFields.putAll(staticFields);
+	}
 }
 

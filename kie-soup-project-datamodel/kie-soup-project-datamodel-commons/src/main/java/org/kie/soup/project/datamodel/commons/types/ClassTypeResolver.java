@@ -16,13 +16,18 @@
 
 package org.kie.soup.project.datamodel.commons.types;
 
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import org.kie.soup.project.datamodel.ParteorLibsScanner;
 
 public class ClassTypeResolver
         implements
@@ -80,8 +85,11 @@ public class ClassTypeResolver
         if (classLoader == null) {
             throw new RuntimeException("ClassTypeResolver cannot have a null parent ClassLoader");
         }
-
-        this.classLoader = classLoader;
+        // <Prodaxis>
+        List<URL> urls = ParteorLibsScanner.getInstance().getParteorJarsUrl();
+        URLClassLoader clazzLoader = new URLClassLoader(urls.toArray(new URL[urls.size()]), classLoader);
+        // </Prodaxis>
+        this.classLoader = clazzLoader;
     }
 
     public ClassTypeResolver(Set<String> imports,
@@ -202,8 +210,7 @@ public class ClassTypeResolver
 
         // try loading className
         if (clazz == null) {
-            clazz = safeLoadClass(this.classLoader,
-                                  className);
+            clazz = safeLoadClass(this.classLoader, className);
             if (clazz != null && !classFilter.accept(clazz)) {
                 clazz = null;
             }
